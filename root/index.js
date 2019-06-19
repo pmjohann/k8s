@@ -6,12 +6,12 @@ const params = {
     'node-type': process.env.NODE_TYPE,
     'nodes': process.env.NODES,
     'master-type': process.env.MASTER_TYPE,
-    'reguion': process.env.REGION,
+    'region': process.env.REGION,
     'ssh-public-key': process.env.SSH_PUBKEY_PATH
 };
 
 
-fs.readFile(confPath, 'utf8', function(err, contents) {
+fs.readFile(confPath + '.sample', 'utf8', function(err, contents) {
     if (err) throw err;
 
     contents = contents.replace('__TOKEN__', params.token);
@@ -22,6 +22,7 @@ fs.readFile(confPath, 'utf8', function(err, contents) {
         Object.keys(params).forEach(param => {
             cmd += ` --${param} ${params[param]}`;
         });
+        cmd += ` ${process.env.CLUSTERNAME}`;
         exec(cmd, (err, stdout, stderr) => {
             if (err) throw err;
 
