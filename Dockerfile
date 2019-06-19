@@ -9,6 +9,7 @@ ENV MASTER_TYPE=g6-standard-2
 ENV NODE_TYPE=g6-standard-1
 ENV NODES=2
 ENV REGION=eu-west
+ENV CLUSTERNAME=mycluster
 
 # FETCH DEPS
 RUN apt-get update && apt-get install -y \
@@ -29,7 +30,7 @@ RUN chmod +x ./kubectl
 RUN mv ./kubectl /usr/local/bin/kubectl
 
 # INSTALL TERRAFORM
-RUN curl -sSL https://releases.hashicorp.com/terraform/0.12.2/terraform_0.12.2_linux_amd64.zip -o /tmp/tf.zip
+RUN curl -sSL https://releases.hashicorp.com/terraform/0.11.3/terraform_0.11.3_linux_amd64.zip -o /tmp/tf.zip
 RUN unzip /tmp/tf.zip && rm /tmp/tf.zip && mv terraform /usr/local/bin/terraform
 
 # INSTALL LINODE-CLI
