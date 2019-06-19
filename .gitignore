@@ -1,3 +1,4 @@
 root/.k8s-alpha-linode
 root/.ssh
 root/.terraform.d
+.bash_history
