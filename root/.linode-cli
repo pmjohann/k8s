@@ -1,0 +1,8 @@
+[DEFAULT]
+default-user = defaultacct
+
+[defaultacct]
+token = 63931af6dad339754782d344471c7e7b8458bc6ea19a486e97d58b7d3c4f99a2
+region = eu-west
+type = g6-standard-1
+image = linode/alpine3.9
