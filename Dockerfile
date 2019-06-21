@@ -30,7 +30,7 @@ RUN chmod +x ./kubectl
 RUN mv ./kubectl /usr/local/bin/kubectl
 
 # INSTALL TERRAFORM
-RUN curl -sSL https://releases.hashicorp.com/terraform/0.11.3/terraform_0.11.3_linux_amd64.zip -o /tmp/tf.zip
+RUN curl -sSL https://releases.hashicorp.com/terraform/0.11.4/terraform_0.11.4_linux_amd64.zip -o /tmp/tf.zip
 RUN unzip /tmp/tf.zip && rm /tmp/tf.zip && mv terraform /usr/local/bin/terraform
 
 # INSTALL LINODE-CLI
