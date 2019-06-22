@@ -7,7 +7,8 @@ const params = {
     'nodes': process.env.NODES,
     'master-type': process.env.MASTER_TYPE,
     'region': process.env.REGION,
-    'ssh-public-key': process.env.SSH_PUBKEY_PATH
+    'ssh-public-key': process.env.SSH_PUBKEY_PATH,
+    'auto-approve': ''
 };
 
 
@@ -23,6 +24,8 @@ fs.readFile(confPath + '.sample', 'utf8', function(err, contents) {
             cmd += ` --${param} ${params[param]}`;
         });
         cmd += ` ${process.env.CLUSTERNAME}`;
+        console.log(cmd);
+        process.exit();
         exec(cmd, (err, stdout, stderr) => {
             if (err) throw err;
 
