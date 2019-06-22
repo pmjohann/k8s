@@ -37,10 +37,10 @@ RUN unzip /tmp/tf.zip && rm /tmp/tf.zip && mv terraform /usr/local/bin/terraform
 RUN pip3 install linode-cli
 
 # COPY FILES
-COPY root/* /root/
+COPY app /app
 
 # MAKE ENTRYPOINT EXECUTABLE
-RUN chmod +x /root/docker-entrypoint.sh
+RUN chmod +x /app/docker-entrypoint.sh
 
 # SET ENTRYPOINT
-ENTRYPOINT /root/docker-entrypoint.sh
+ENTRYPOINT /app/docker-entrypoint.sh
