@@ -1,0 +1,29 @@
+{
+    "fremont": {
+        "linode": "us-west"
+    },
+    "dallas": {
+        "linode": "us-central"
+    },
+    "atlanta": {
+        "linode": "us-southeast"
+    },
+    "toronto": {
+        "linode": "ca-central"
+    },
+    "newark": {
+        "linode": "us-east"
+    },
+    "london": {
+        "linode": "eu-west"
+    },
+    "frankfurt": {
+        "linode": "eu-central"
+    },
+    "singapore": {
+        "linode": "ap-south"
+    },
+    "tokyo": {
+        "linode": "ap-northeast"
+    },
+}
