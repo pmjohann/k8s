@@ -18,7 +18,8 @@ RUN apt-get update && apt-get install -y \
     python3-pip \
     openssh-client \
     unzip \
-    git;
+    git \
+    php;
 
 # NODEJS INSTALL
 RUN curl -sL https://deb.nodesource.com/setup_12.x | bash
@@ -34,12 +35,15 @@ RUN curl -sSL https://releases.hashicorp.com/terraform/0.11.4/terraform_0.11.4_l
 RUN unzip /tmp/tf.zip && rm /tmp/tf.zip && mv terraform /usr/local/bin/terraform
 
 # INSTALL LINODE-CLI
-RUN pip3 install linode-cli
+RUN pip3 install linode-cli && pip3 install --upgrade linode-cli
 
 # COPY AND INSTALL
 COPY app /app
 WORKDIR /app
 RUN npm install
+
+# CREATE OUTPUT FOLDER FOR KUBECONFIG FILES
+RUN mkdir /out
 
 # MAKE ENTRYPOINT EXECUTABLE
 RUN chmod +x /app/docker-entrypoint.sh
