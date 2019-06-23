@@ -13,6 +13,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "unique-names-generator": "^3.0.0"
+    "unique-names-generator": "^3.0.0",
+    "yaml": "^1.6.0"
   }
 }
