@@ -47,9 +47,19 @@ RUN mkdir /out
 
 # MAKE ENTRYPOINT EXECUTABLE
 RUN chmod +x /app/docker-entrypoint.sh
+
+# ADD CLUSTER SCRIPTS
 RUN chmod +x /app/addcluster.sh
 RUN ln -s /app/addcluster.sh /usr/local/bin/addcluster
 RUN chmod +x /usr/local/bin/addcluster
+
+RUN chmod +x /app/delcluster.sh
+RUN ln -s /app/delcluster.sh /usr/local/bin/delcluster
+RUN chmod +x /usr/local/bin/delcluster
+
+RUN chmod +x /app/applycluster.sh
+RUN ln -s /app/applycluster.sh /usr/local/bin/applycluster
+RUN chmod +x /usr/local/bin/applycluster
 
 # SET ENTRYPOINT
 ENTRYPOINT /app/docker-entrypoint.sh
