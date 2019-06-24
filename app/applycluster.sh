@@ -1,8 +1,8 @@
 #!/bin/bash
 
-for kubecfg in $(ls /out)
+for kubecfg in $(find /out -name *.yaml -type f)
 do
-    for manifest in $(ls /app/manifests)
+    for manifest in $(find /app/manifests -name *.yml -type f)
     do
         echo $kubecfg $manifest
         KUBECONFIG=$kubecfg kubectl apply -f $manifest
