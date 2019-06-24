@@ -6,8 +6,6 @@ metadata:
   labels:
     k8s-app: cc-nodetest
 spec:
-  tolerations:
-  - key: node-role.kubernetes.io/master
     effect: NoSchedule
   selector:
     matchLabels:
@@ -17,6 +15,8 @@ spec:
       labels:
         name: cc-nodetest
     spec:
+      tolerations:
+      - key: node-role.kubernetes.io/master
       containers:
       - name: cc-nodetest
         image: pmjohann/nodetest
