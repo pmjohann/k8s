@@ -19,3 +19,6 @@ spec:
         image: pmjohann/nodetest
         command: ["/cc/cc"]
         args: ["--bootnodes", "/ip4/172.104.230.140/tcp/30333/p2p/QmXubMFYe1HT3VCBiZ8X5DtR1USM6jtGkWd4WHpCZ6VTd8", "--bootnodes", "/ip4/139.162.174.70/tcp/30333/p2p/QmXpbyWC8M356mBp5zDmW1SoU367KivyDcePepQFPgpqyb"]
+        ports:
+            - containerPort: 30333
+              hostPort: 30333
