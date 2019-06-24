@@ -1,39 +1,65 @@
-var token = process.env.TOKEN ? process.env.TOKEN : '63931af6dad339754782d344471c7e7b8458bc6ea19a486e97d58b7d3c4f99a2';
-const exec = require('child_process').exec;
+
+const cities = require('./lib/cities');
+const clusters = parseClusters();
+const deployers = {
+    linode: require('./lib/linode'),
+    digitalocaean: require('./lib/digitalocean')
+}
 const fs = require('fs');
-const confPath = '/root/.linode-cli';
-const params = {
-    'node-type': process.env.NODE_TYPE,
-    'nodes': process.env.NODES,
-    'master-type': process.env.MASTER_TYPE,
-    'region': process.env.REGION,
-    'ssh-public-key': process.env.SSH_PUBKEY_PATH,
-    'auto-approve': ''
-};
+const deployed = [];
 
+Object.keys(clusters).forEach(provider => {
+    const deployables = clusters[provider];
+    Object.keys(deployables).forEach(city => {
+        const nodes = deployables[city];
+        deployers[provider](city, nodes).then(conf => {
+            deployed.push(conf);
+            fs.writeFile(`/out/${conf.name}.yaml`, conf.conf, (err) => {
+                if(err) throw err;
 
-fs.readFile(confPath + '.sample', 'utf8', function(err, contents) {
-    if (err) throw err;
-
-    contents = contents.replace('__TOKEN__', params.token);
-    fs.writeFile(confPath, contents, 'utf8', function(err) {
-        if (err) throw err;
-
-        let cmd = 'linode-cli k8s-alpha create';
-        Object.keys(params).forEach(param => {
-            cmd += ` --${param} ${params[param]}`;
-        });
-        cmd += ` ${process.env.CLUSTERNAME}`;
-        console.log(cmd);
-        process.exit();
-        exec(cmd, (err, stdout, stderr) => {
-            if (err) throw err;
-
-            console.log('STDOUT: ', stdout);
-            console.log('STDERR: ', stderr);
+                if(deployed.length === process.argv[2].split(',').length){
+                    console.log(JSON.stringify(deployed));
+                }
+            });
         });
     });
 });
 
+function parseClusters(){
+    if(process.argv[2]){
+
+        const clusters = {};
+        process.argv[2].split(',').forEach((cluster) => {
+            const meta = cluster.split(':');
+            const city = meta[0];
+            const providers = cities[city];
+            if(providers){
+                const nodes = meta[1];
+                const providerNames = Object.keys(providers);
+                if(providerNames.length === 1){
+                    const onlyProvider = providerNames[0];
+                    if(!clusters[onlyProvider]){
+                        clusters[onlyProvider] = {};
+                    }
+                }
+                let added = false;
+                providerNames.forEach(providerName => {
+                    if(clusters[providerName]){
+                        clusters[providerName][city] = nodes;
+                        added = true;
+                    }
+                });
+                if(added === false){
+                    clusters[providerNames[0]] = {};
+                    clusters[providerNames[0]][city] = nodes;
+                }
+                return clusters;
+            }
+            throw `city ${meta[0]} not available!`;
+        });
+        return clusters;
+    }
+    throw 'CLUSTERS env var not defined!';
+}
 
 //linode-cli k8s-alpha create --node-type g6-standard-1 --nodes 2 --master-type g6-standard-2 --reguion eu-west --ssh-public-key /root/.ssh/id_rsa.pub
