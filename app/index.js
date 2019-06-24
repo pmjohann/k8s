@@ -2,8 +2,7 @@
 const cities = require('./lib/cities');
 const clusters = parseClusters();
 const deployers = {
-    linode: require('./lib/linode'),
-    digitalocaean: require('./lib/digitalocean')
+    linode: require('./lib/linode')
 }
 const fs = require('fs');
 const deployed = [];
