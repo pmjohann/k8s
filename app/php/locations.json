@@ -1,0 +1,40 @@
+{
+    "linode": {
+
+        "us-southeast": {
+            "coords": "33.748997:-84.387985",
+            "city": "Atlanta"
+        },
+        "us-central": {
+            "coords": "32.776665:-96.796989",
+            "city": "Dallas"
+        },
+        "eu-central": {
+            "coords": "50.110924:8.682127",
+            "city": "Frankfurt"
+        },
+        "us-west": {
+            "coords": "37.548271:-121.988571",
+            "city": "Fremont"
+        },
+        "eu-west": {
+            "coords": "51.507351:-0.127758",
+            "city": "London"
+        },
+        "us-east": {
+            "coords": "37.443188:-95.582733",
+            "city": "Newark"
+        },
+        "ap-south": {
+            "coords": "1.352083:103.819839",
+            "city": "Singapore"
+        },"ap-northeast": {
+            "coords": "35.689487:139.691711",
+            "city": "Tokyo"
+        },
+        "ca-central": {
+            "coords": "43.653225:-79.383186",
+            "city": "Toronto"
+        }
+    }
+}
