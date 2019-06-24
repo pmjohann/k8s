@@ -3,10 +3,8 @@
 # START APACHE
 apachectl start
 
-# GENERATE NEW SSH KEYPAIR
-rm -rf /root/.ssh/id_rsa /root/.ssh/id_rsa.pub
-ssh-keygen -t rsa -b 4096 -C "noreply@example.com" -f /root/.ssh/id_rsa -N ""
-eval $(ssh-agent) && ssh-add /root/.ssh/id_rsa
+# LINK KUBERNETES MANIFESTS
+ln -s /out /app/php/out
 
-# LAUNCH INIT SCRIPT
-node /app/index.js
+# RUN LINODE SCRAPER
+php /app/php/linodes.php
