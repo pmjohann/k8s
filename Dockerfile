@@ -5,7 +5,7 @@ ENV DEBIAN_FRONTEND=noninteractive
 
 # SET DEFAULT ENV VARS FOR DEPLOYMENT
 ENV SSH_PUBKEY_PATH=/root/.ssh/id_rsa.pub
-ENV MASTER_TYPE=g6-standard-1
+ENV MASTER_TYPE=g6-standard-2
 ENV NODE_TYPE=g6-nanode-1
 
 # FETCH DEPS
