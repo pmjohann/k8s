@@ -5,11 +5,8 @@ ENV DEBIAN_FRONTEND=noninteractive
 
 # SET DEFAULT ENV VARS FOR DEPLOYMENT
 ENV SSH_PUBKEY_PATH=/root/.ssh/id_rsa.pub
-ENV MASTER_TYPE=g6-standard-2
-ENV NODE_TYPE=g6-standard-1
-ENV NODES=2
-ENV REGION=eu-west
-ENV CLUSTERNAME=mycluster
+ENV MASTER_TYPE=g6-standard-1
+ENV NODE_TYPE=g6-nanode-1
 
 # FETCH DEPS
 RUN apt-get update && apt-get install -y \
@@ -42,11 +39,17 @@ COPY app /app
 WORKDIR /app
 RUN npm install
 
+# LINK PHP FILES TO APACHE
+RUN rm -rf /var/www/html && ln -s /app/php /var/www/html
+
 # CREATE OUTPUT FOLDER FOR KUBECONFIG FILES
 RUN mkdir /out
 
 # MAKE ENTRYPOINT EXECUTABLE
 RUN chmod +x /app/docker-entrypoint.sh
+RUN chmod +x /app/addcluster.sh
+RUN ln -s /app/addcluster.sh /usr/local/bin/addcluster
+RUN chmod +x /usr/local/bin/addcluster
 
 # SET ENTRYPOINT
 ENTRYPOINT /app/docker-entrypoint.sh
