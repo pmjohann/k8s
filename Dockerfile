@@ -61,5 +61,13 @@ RUN chmod +x /app/applycluster.sh
 RUN ln -s /app/applycluster.sh /usr/local/bin/applycluster
 RUN chmod +x /usr/local/bin/applycluster
 
+RUN chmod +x /app/deletemanifests.sh
+RUN ln -s /app/deletemanifests.sh /usr/local/bin/deletemanifests
+RUN chmod +x /usr/local/bin/deletemanifests
+
+RUN chmod +x /app/getlogs.sh
+RUN ln -s /app/getlogs.sh /usr/local/bin/getlogs
+RUN chmod +x /usr/local/bin/getlogs
+
 # SET ENTRYPOINT
 ENTRYPOINT /app/docker-entrypoint.sh
