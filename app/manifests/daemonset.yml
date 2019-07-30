@@ -1,27 +1,35 @@
 apiVersion: apps/v1
 kind: DaemonSet
 metadata:
-  name: cc-nodetest
+  name: speedtest
   namespace: default
   labels:
-    k8s-app: cc-nodetest
+    k8s-app: speedtest
 spec:
   selector:
     matchLabels:
-      name: cc-nodetest
+      name: speedtest
   template:
     metadata:
       labels:
-        name: cc-nodetest
+        name: speedtest
     spec:
       tolerations:
       - key: node-role.kubernetes.io/master
         effect: NoSchedule
       containers:
-      - name: cc-nodetest
-        image: pmjohann/nodetest
-        command: ["/cc/cc"]
-        args: ["--bootnodes", "/ip4/172.104.230.140/tcp/30333/p2p/QmXubMFYe1HT3VCBiZ8X5DtR1USM6jtGkWd4WHpCZ6VTd8", "--bootnodes", "/ip4/139.162.174.70/tcp/30333/p2p/QmXpbyWC8M356mBp5zDmW1SoU367KivyDcePepQFPgpqyb"]
+      - name: substrate
+        image: pmjohann/nodetest:latest
+        env:
+          - name: MASTER_IP
+            value: 172.104.230.140
+          - name: TOTAL_NODES
+            value: "31"
         ports:
-            - containerPort: 30333
-              hostPort: 30333
+          - containerPort: 30333
+            hostPort: 30333
+          - containerPort: 9944
+      - name: redis
+        image: redis:alpine
+        ports:
+          - containerPort: 6379
