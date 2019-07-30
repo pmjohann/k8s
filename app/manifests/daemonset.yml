@@ -29,7 +29,3 @@ spec:
           - containerPort: 30333
             hostPort: 30333
           - containerPort: 9944
-      - name: redis
-        image: redis:alpine
-        ports:
-          - containerPort: 6379
